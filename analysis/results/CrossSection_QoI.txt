@@ -1,0 +1,9 @@
+YZ cross-section located at out-of-plane coordinate 528
+The fraction of grains in this cross-section formed via nucleation events is 0
+Average grain area (in square microns): 106.542
+XZ cross-section located at out-of-plane coordinate 70
+The fraction of grains in this cross-section formed via nucleation events is 0
+Average grain area (in square microns): 135.668
+XY cross-section located at out-of-plane coordinate 124
+The fraction of grains in this cross-section formed via nucleation events is 0
+Average grain area (in square microns): 254.224
