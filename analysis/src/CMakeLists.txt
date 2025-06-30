@@ -1,27 +1,21 @@
-set(EXAGA_HEADERS
-    runGA.hpp
-    GAprint.hpp
-    GAutils.hpp
-)
-set(EXAGA_SOURCES
-    runGA.cpp
-    GAprint.cpp
-    GAutils.cpp
-)
-set(EXAGA_AMB_HEADERS
-    runGA_AMB.hpp
-    GAprint.hpp
-    GAutils.hpp
-)
-set(EXAGA_AMB_SOURCES
-    runGA_AMB.cpp
-    GAprint.cpp
-    GAutils.cpp
-)
+file(GLOB EXAGA_HEADERS GLOB *.hpp)
+file(GLOB EXAGA_SOURCES GLOB *.cpp)
 
-add_executable(grain_analysis ${EXAGA_SOURCES})
-target_link_libraries(grain_analysis ExaCA)
-install(TARGETS grain_analysis DESTINATION ${CMAKE_INSTALL_BINDIR})
-add_executable(grain_analysis_amb ${EXAGA_AMB_SOURCES})
-target_link_libraries(grain_analysis_amb ExaCA)
-install(TARGETS grain_analysis_amb DESTINATION ${CMAKE_INSTALL_BINDIR})
+install(FILES ${EXAGA_HEADERS} DESTINATION ${CMAKE_INSTALL_INCLUDEDIR})
+
+add_library(ExaCA-Analysis ${EXAGA_SOURCES})
+add_library(ExaCA::Analysis ALIAS ExaCA-Analysis)
+
+target_link_libraries(ExaCA-Analysis PUBLIC ExaCA-Core)
+
+target_include_directories(
+  ExaCA-Analysis
+  PUBLIC $<BUILD_INTERFACE:${CMAKE_CURRENT_SOURCE_DIR}>
+         $<BUILD_INTERFACE:${CMAKE_CURRENT_BINARY_DIR}>
+         $<INSTALL_INTERFACE:${CMAKE_INSTALL_INCLUDEDIR}>)
+
+install(
+  TARGETS ExaCA-Analysis
+  EXPORT ExaCA_Targets
+  LIBRARY DESTINATION ${CMAKE_INSTALL_LIBDIR}
+  ARCHIVE DESTINATION ${CMAKE_INSTALL_LIBDIR})
